@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cute Pomodoro Timer</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="background-overlay"></div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">
+                    <i class="fas fa-heart"></i>
+                    Cute Pomodoro
+                </h1>
+                <div class="settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <div class="app-grid">
+                    <!-- Timer Section -->
+                    <div class="timer-section">
+                        <div class="timer-card">
+                            <div class="timer-header">
+                                <h2 class="timer-title">Focus Time</h2>
+                                <div class="timer-mode" id="timerMode">
+                                    Study Session
+                                </div>
+                            </div>
+
+                            <div class="timer-display">
+                                <div class="timer-circle">
+                                    <svg
+                                        class="progress-ring"
+                                        width="200"
+                                        height="200"
+                                    >
+                                        <circle
+                                            class="progress-ring-bg"
+                                            cx="100"
+                                            cy="100"
+                                            r="85"
+                                        ></circle>
+                                        <circle
+                                            class="progress-ring-progress"
+                                            cx="100"
+                                            cy="100"
+                                            r="85"
+                                        ></circle>
+                                    </svg>
+                                    <div class="timer-time" id="timerTime">
+                                        25:00
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timer-controls">
+                                <button class="btn btn-primary" id="startBtn">
+                                    <i class="fas fa-play"></i>
+                                    Start
+                                </button>
+                                <button
+                                    class="btn btn-secondary"
+                                    id="pauseBtn"
+                                    style="display: none"
+                                >
+                                    <i class="fas fa-pause"></i>
+                                    Pause
+                                </button>
+                                <button class="btn btn-secondary" id="resetBtn">
+                                    <i class="fas fa-refresh"></i>
+                                    Reset
+                                </button>
+                            </div>
+
+                            <div class="timer-presets">
+                                <button
+                                    class="preset-btn active"
+                                    data-study="25"
+                                    data-break="5"
+                                >
+                                    25/5 min
+                                </button>
+                                <button
+                                    class="preset-btn"
+                                    data-study="50"
+                                    data-break="10"
+                                >
+                                    50/10 min
+                                </button>
+                                <button class="preset-btn" id="customBtn">
+                                    Custom
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Todo List Section -->
+                    <div class="todo-section">
+                        <div class="todo-card">
+                            <div class="todo-header">
+                                <h2>
+                                    <i class="fas fa-list"></i>
+                                    Todo List
+                                </h2>
+                                <div class="todo-stats" id="todoStats">
+                                    0 of 0 completed
+                                </div>
+                            </div>
+
+                            <div class="todo-input">
+                                <input
+                                    type="text"
+                                    id="todoInput"
+                                    placeholder="Add a new task..."
+                                />
+                                <button class="btn btn-primary" id="addTodoBtn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div class="todo-list" id="todoList">
+                                <!-- Todo items will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="stats-section">
+                        <div class="stats-card">
+                            <h3>
+                                <i class="fas fa-chart-line"></i>
+                                Study Statistics
+                            </h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number" id="totalSessions">
+                                        0
+                                    </div>
+                                    <div class="stat-label">Sessions</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" id="totalTime">
+                                        0h 0m
+                                    </div>
+                                    <div class="stat-label">Study Time</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number" id="todayTime">
+                                        0h 0m
+                                    </div>
+                                    <div class="stat-label">Today</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button class="close-btn" id="closeSettingsBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Background Selection -->
+                    <div class="setting-section">
+                        <h4>Background Theme</h4>
+                        <div class="background-options">
+                            <div class="bg-option active" data-bg="default">
+                                <div class="bg-preview default-bg"></div>
+                                <span>Default</span>
+                            </div>
+                            <div class="bg-option" data-bg="pastel">
+                                <div class="bg-preview pastel-bg"></div>
+                                <span>Pastel</span>
+                            </div>
+                            <div class="bg-option" data-bg="nature">
+                                <div class="bg-preview nature-bg"></div>
+                                <span>Nature</span>
+                            </div>
+                            <div class="bg-option" data-bg="sunset">
+                                <div class="bg-preview sunset-bg"></div>
+                                <span>Sunset</span>
+                            </div>
+                            <div class="bg-option" data-bg="ocean">
+                                <div class="bg-preview ocean-bg"></div>
+                                <span>Ocean</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Timer -->
+                    <div class="setting-section">
+                        <h4>Custom Timer</h4>
+                        <div class="custom-timer-inputs">
+                            <div class="input-group">
+                                <label>Study Duration (minutes):</label>
+                                <input
+                                    type="number"
+                                    id="customStudy"
+                                    min="1"
+                                    max="120"
+                                    value="25"
+                                />
+                            </div>
+                            <div class="input-group">
+                                <label>Break Duration (minutes):</label>
+                                <input
+                                    type="number"
+                                    id="customBreak"
+                                    min="1"
+                                    max="60"
+                                    value="5"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="notification" id="notification">
+            <div class="notification-content">
+                <i class="fas fa-bell"></i>
+                <span id="notificationText"></span>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
